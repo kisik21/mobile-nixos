@@ -37,6 +37,11 @@ in
       default = false;
       description = "enable when SOC is SDM660";
     };
+    hardware.socs.qualcomm-sdm665.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "enable when SOC is SDM665";
+    };
   };
 
   config = mkMerge [
@@ -69,6 +74,12 @@ in
         system.system = "aarch64-linux";
         quirks.qualcomm.msm-fb-refresher.enable = true;
       };
+    {
+      mobile = mkIf cfg.qualcomm-sdm665.enable {
+        system.system = "aarch64-linux";
+        quirks.qualcomm.msm-fb-refresher.enable = true;
+      };
+    }
     }
     {
       mobile = mkIf cfg.qualcomm-apq8064-1aa.enable {
